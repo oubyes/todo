@@ -25,6 +25,17 @@ describe "tasks#index" do
     expect(task.done) == true
 
     end
+end
+  
+
+describe "tasks#create" do
+    it "should allow new tasks to be created" do
+      post :create, params: {task: {title: "Fix things"}}
+      expect(response).to have_http_status(:success)
+      response_value = ActiveSupport::JSON.decode(@response.body)
+      expect(response_value['title']).to eq("Fix things")
+      expect(Task.last.title).to eq("Fix things")
+    end
   end
 
 end
