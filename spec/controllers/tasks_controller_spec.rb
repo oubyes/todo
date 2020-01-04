@@ -11,4 +11,15 @@ describe "tasks#index" do
       expect(response_value.count).to eq(2)
     end
   end
+
+ describe "tasks#update" do
+    it "should allow tasks to be marked as done" do
+    task = FactoryBot.create(:task, done: false)
+    put :update, params: {id: task.id, task: { done: true }}
+    expect(response).to have_http_status(:success)
+    expect(task.done) == true
+
+    end
+  end
+
 end
